@@ -27,26 +27,31 @@ stages:
           **/*.tf
         TargetFolder: '$(Build.ArtifactStagingDirectory)'
     - bash: ls -R $(Build.ArtifactStagingDirectory)
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
 
 
-- stage: DevDeploy
-  variables:
-   environment: Dev
-  jobs:
-  - job:  DevDeployJob
-    steps:
-    - bash: echo DevDeployJob
-- stage: QADeploy
-  variables:
-   environment: QA
-  jobs:
-  - job:  QADeployJob
-    steps:
-    - bash: echo QADeployJob
-- stage: ProdDeploy
-  jobs:
-  - job:   ProdDeployJob
-    steps:
-    - bash: echo ProdDeployJob
+# - stage: DevDeploy
+#   variables:
+#   environment: Dev
+#  jobs:
+# - job:  DevDeployJob
+#    steps:
+#    - bash: echo DevDeployJob
+#- stage: QADeploy
+#  variables:
+#   environment: QA
+#  jobs:
+#  - job:  QADeployJob
+#    steps:
+#    - bash: echo QADeployJob
+#- stage: ProdDeploy
+#  jobs:
+#  - job:   ProdDeployJob
+#    steps:
+#    - bash: echo ProdDeployJob
 
 
